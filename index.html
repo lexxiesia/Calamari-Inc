@@ -61,13 +61,22 @@
       loading: function(bool) {
         document.getElementById('loading').style.display =
           bool ? 'block' : 'none';
-      }
+      },
+	  
+      eventTimeFormat: { hour: 'numeric', minute: '2-digit', timeZoneName: 'short' },
+
+      dateClick: function(arg) {
+        console.log('dateClick', calendar.formatIso(arg.date));
+      },
+      select: function(arg) {
+        console.log('select', calendar.formatIso(arg.start), calendar.formatIso(arg.end));
+      }	 
 
     });
 
     calendar.render();
 	
-	    FullCalendar.requestJson('GET', 'php/get-time-zones.php', {}, function(timeZones) {
+	FullCalendar.requestJson('GET', 'php/get-time-zones.php', {}, function(timeZones) {
 
       timeZones.forEach(function(timeZone) {
         var optionEl;
@@ -140,7 +149,12 @@
       Timezone:
       <select id='time-zone-selector'>
         <option value='local' selected>local</option>
-        <option value='UTC'>UTC</option>
+		<option value='Asia/Hong_Kong'>Asia/Hong_Kong</option>
+		<option value='Asia/Kuala_Lumpur'>Asia/Kuala_Lumpur</option>
+		<option value='Asia/Singapore'>Asia/Singapore</option>
+		<option value='Australia/Sydney'>Australia/Sydney</option>
+        <option value='EST'>EST</option>
+		<option value='Pacific/Auckland'>Pacific/Auckland</option>
       </select>
     </div>
 
