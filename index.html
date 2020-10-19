@@ -1,184 +1,75 @@
-<!DOCTYPE html>
 <html>
-<head>
-<meta charset='utf-8' />
-<link href='packages/core/main.css' rel='stylesheet' />
-<link href='packages/daygrid/main.css' rel='stylesheet' />
-<link href='packages/timegrid/main.css' rel='stylesheet' />
-<link href='packages/list/main.css' rel='stylesheet' />
-<script src='packages/core/main.js'></script>
-<script src='packages/interaction/main.js'></script>
-<script src='packages/daygrid/main.js'></script>
-<script src='packages/timegrid/main.js'></script>
-<script src='packages/list/main.js'></script>
-<script src='packages/google-calendar/main.js'></script>
-
-<title> Calamari Inc. | Asura</title>
-
-<script>
-
-  document.addEventListener('DOMContentLoaded', function() {
-	var initialTimeZone = 'local';
-    var timeZoneSelectorEl = document.getElementById('time-zone-selector');
-    var loadingEl = document.getElementById('loading');
-    var calendarEl = document.getElementById('calendar');
-
-    var calendar = new FullCalendar.Calendar(calendarEl, {
-
-      plugins: [ 'interaction', 'dayGrid', 'list', 'googleCalendar' ],
-
-      header: {
-        left: 'prev,next today',
-        center: 'title',
-        right: 'dayGridMonth,listYear'
-      },
-	  
-	  // Patch 5.2 Launch Day
-	  events: [
-		{
-			title: 'Patch 5.2: Echoes of a Fallen Star',
-			start: '2020-02-18',
-			url: 'https://na.finalfantasyxiv.com/shadowbringers/patch_5_2/',
-			color: '#33B679',
-			textColor: 'white'
-			},
-		],
-
-      displayEventTime: true, 
-      googleCalendarApiKey: 'AIzaSyBmOdJ94zMITbQYuh9yLOU2b0-ieQULM34',
-
-      // Away , Late
-      eventSources: [
-		{
-			googleCalendarId: 'i6d0r79jdsm9fk4pnnau3odsd8@group.calendar.google.com', 
-			color: '#D50000',
-			textColor: 'white'
-		},
-		{
-			googleCalendarId: 'fgjjobevoo8tfqp07pbmq6of34@group.calendar.google.com',
-			color: '#B39DDB',
-			textColor: 'white'
-		}
-		],
-
-		
-      eventClick: function(arg) {
-        // opens events in a popup window
-        window.open(arg.event.url, 'google-calendar-event', 'width=700,height=600');
-
-        arg.jsEvent.preventDefault() // don't navigate in main tab
-      },
-
-      loading: function(bool) {
-        document.getElementById('loading').style.display =
-          bool ? 'block' : 'none';
-      },
-	  
-      eventTimeFormat: { hour: 'numeric', minute: '2-digit', timeZoneName: 'short' },
-
-      dateClick: function(arg) {
-        console.log('dateClick', calendar.formatIso(arg.date));
-      },
-      select: function(arg) {
-        console.log('select', calendar.formatIso(arg.start), calendar.formatIso(arg.end));
-      }	 
-
-    });
-
-    calendar.render();
+  <head>
+    <meta charset='utf-8' />
 	
-	FullCalendar.requestJson('GET', 'php/get-time-zones.php', {}, function(timeZones) {
-
-      timeZones.forEach(function(timeZone) {
-        var optionEl;
-
-        if (timeZone !== 'UTC') { // UTC is already in the list
-          optionEl = document.createElement('option');
-          optionEl.value = timeZone;
-          optionEl.innerText = timeZone;
-          timeZoneSelectorEl.appendChild(optionEl);
-        }
-      });
-    }, function() {
-      // TODO: handle error
-    });
-
-    // when the timezone selector changes, dynamically change the calendar option
-    timeZoneSelectorEl.addEventListener('change', function() {
-      calendar.setOption('timeZone', this.value);
-    });
-  });
-
-</script>
-<style>
-
-  body {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
-    font-size: 14px;
-  }
-  
-  #top {
-    background: #eee;
-    border-bottom: 1px solid #ddd;
-    padding: 0 10px;
-    line-height: 40px;
-    font-size: 12px;
-  }
-  .left { float: left }
-  .right { float: right }
-  .clear { clear: both }
-
-  #script-warning, #loading { display: none }
-  #script-warning { font-weight: bold; color: red }
-
-  #loading {
-    display: none;
-    position: absolute;
-    top: 10px;
-    right: 10px;
-  }
-
-  #calendar {
-    max-width: 900px;
-    margin: 40px auto;
-	padding: 0 10px;
-  }
- 
-  .tzo {
-    color: #000;
-  }
-
-</style>
-</head>
+	<title>
+		Calamari Inc. | Asura
+	</title>
+	
+	<link href='packages/index.css' rel='stylesheet' />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<script src='packages/index.js'></script>
+  </head>
+	
 <body>
 
-  <div id='top'>
+<div class="body">
+<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Asul">
 
-    <div class='left'>
-      Timezone:
-      <select id='time-zone-selector'>
-        <option value='local' selected>local</option>
-		<option value='Asia/Hong_Kong'>Asia/Hong_Kong</option>
-		<option value='Asia/Kuala_Lumpur'>Asia/Kuala_Lumpur</option>
-		<option value='Asia/Singapore'>Asia/Singapore</option>
-		<option value='Australia/Sydney'>Australia/Sydney</option>
-        <option value='EST'>EST</option>
-		<option value='Pacific/Auckland'>Pacific/Auckland</option>
-      </select>
-    </div>
+<div class="navbar">
+	<div class="active">
+		<a href="#">Home</a>
+	</div>
+	<a href="calendar.html">Raid Calendar</a>
+	<div class="dropdown">
+		<button class="dropbtn">Legacy BiS
+			<i class="fa fa-caret-down"></i>
+		</button>
+		<div class="dropdown-content">
+			<a href="https://docs.google.com/document/d/11qSdAy9PL5NdxHwzOg_oW2ZnX5aDGfytk4JlinTgQOc/edit#heading=h.m666q6hq2p03" target="_blank"><img style="vertical-align:middle;height:100%;" src="resources/tank.png"> Tank</a>
+			<a href="https://docs.google.com/document/d/1W5Qtegw-C5K0kUmNjSL5ThEO4A3d2OEXIZQRg570Gi4/edit#heading=h.m666q6hq2p03" target="_blank"><img style="vertical-align:middle;height:100%;" src="resources/healer.png"> Healer</a>
+			<a href="https://docs.google.com/document/d/1qe_0E1kqD8qwBjMtOTpEdDGdfNdz8bEMdP2q4tBQfss/edit#heading=h.m666q6hq2p03" target="_blank"><img style="vertical-align:middle;height:100%;" src="resources/melee.png"> Melee DPS</a>
+			<a href="https://docs.google.com/document/d/1oeMSgLvBZWErTHfU_pp7eK2NbGQaARjuVZnmRgFlMEg/edit#heading=h.m666q6hq2p03" target="_blank"><img style="vertical-align:middle;height:100%;" src="resources/ranged.png"> Ranged DPS</a>
+			<a href="https://docs.google.com/document/d/1IK-eu5OPPOPlXOeJlMVnI2fxIR4-n0YXsNvJ_HI-JIQ/edit#heading=h.m666q6hq2p03" target="_blank"><img style="vertical-align:middle;height:100%;" src="resources/caster.png"> Caster</a>
+		</div>
+	</div>
+</div>
+		
+	<div class="mainContent">
+		<div class="content">	
+				<article class="content-1">	
+					<header>
+						<h2>
+						This is Calamari Inc. 2.0!
+						</h2>
+					</header>
+					
+					<footer>
+						<p class="post-from">by <a href="https://na.finalfantasyxiv.com/lodestone/character/2497633/" target="_blank">Knyssa Callistis</a>, 15th October 2020</p>
+					</footer>
+					
+					<content>
+						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ullamcorper tristique ex. Vivamus nec ullamcorper diam. Integer tristique eget nisl et egestas. Aenean sed eros ac nunc consectetur egestas. Phasellus ipsum purus, ultrices eu lorem eu, efficitur ultricies nulla. Sed ac justo posuere, gravida mi eu, ullamcorper est. Suspendisse condimentum ipsum massa, in suscipit tortor hendrerit vitae. Vivamus finibus iaculis ullamcorper. Vivamus at dapibus neque. Duis interdum scelerisque est eu porta. Phasellus condimentum metus enim, sed ullamcorper quam ultricies ac. Ut cursus neque elit. Phasellus sagittis odio at sollicitudin interdum. Interdum et malesuada fames ac ante ipsum primis in faucibus. Phasellus nec mauris condimentum, luctus leo vitae, dignissim sem.</p>
+						<p>Morbi porta dui et posuere faucibus. Phasellus id eros ultricies, dictum nibh in, euismod justo. Nullam mattis, justo et venenatis hendrerit, nisi nulla efficitur felis, eu condimentum neque nunc eleifend purus. Duis venenatis ultrices quam, ut finibus metus facilisis sed. Sed nec velit ipsum. Mauris molestie aliquam pretium. Praesent sollicitudin scelerisque ex nec auctor. Cras ac tincidunt lorem. Sed tristique laoreet quam, id tempor neque tincidunt et. Donec non quam erat. Phasellus vulputate nisi non tellus mollis, sed vestibulum augue scelerisque. Morbi mi leo, imperdiet et ex ac, rhoncus rhoncus est.</p>
+            			<p>Fusce accumsan turpis sit amet luctus varius. Vivamus vel facilisis neque, a consectetur dui. Quisque tortor neque, faucibus sed nisi eu, fringilla sodales sapien. Donec ac orci in sapien euismod facilisis ut in purus. Nunc quis feugiat ligula. Pellentesque quis pretium orci, non dapibus nisl. Sed eleifend ligula velit. Sed maximus lacinia dui at rhoncus. Duis sed ex diam. Sed sodales tellus justo, vel auctor ipsum hendrerit quis. Nam quis urna dignissim, congue diam ut, rutrum eros. Quisque a nisl a massa ornare accumsan. Cras lacus nunc, pretium in mattis in, semper a turpis. Proin ante risus, fringilla non purus nec, eleifend pulvinar leo. Donec pharetra tortor est, a auctor ligula pretium vitae.</p>
+					</content>
+					
+				</article>
+		</div>
+			
+				<aside class="sidebar-links">
+					<article>
+					<p><a href="https://discord.gg/jMDnhdM" title="Calamari Inc. on Discord"><img src="./resources/join-discord.png" width="100%"></a></p>
+					<p><a href="https://na.finalfantasyxiv.com/lodestone/freecompany/9226608999087018418/" title="Calamari Inc. on Lodestone"><img src="./resources/lodestone.png" width="100%"></a></p>
+				    </article>
+				</aside>
 
-    <div class='right'>
-      <span id='loading'>loading...</span>
-      <span id='script-warning'><code>php/get-events.php</code> must be running.</span>
-    </div>
+	</div>
+	
+	<footer class="footer">
+		<p>FINAL FANTASY XIV © 2010 - 2020 SQUARE ENIX CO., LTD. All Rights Reserved.</p>
+	</footer>
+  
+</div>
 
-    <div class='clear'></div>
-
-  </div>
-
-  <div id='calendar'></div>
-
-</body>
-</html>
+</body></html>

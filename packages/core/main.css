@@ -564,7 +564,7 @@ TODO: more distinction between this file and common.css
 .fc-unthemed .fc-popover,
 .fc-unthemed .fc-list-view,
 .fc-unthemed .fc-list-heading td {
-  border-color: #ddd;
+  border-color: rgba(44, 62, 80, 0.25);
 }
 
 .fc-unthemed .fc-popover {
@@ -578,7 +578,7 @@ TODO: more distinction between this file and common.css
 }
 
 .fc-unthemed td.fc-today {
-  background: #fcf8e3;
+  background: rgba(55, 136, 216, 0.4);
 }
 
 .fc-unthemed .fc-disabled-day {

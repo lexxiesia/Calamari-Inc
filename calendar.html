@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='utf-8' />
+<link href='packages/core/main.css' rel='stylesheet' />
+<link href='packages/daygrid/main.css' rel='stylesheet' />
+<link href='packages/timegrid/main.css' rel='stylesheet' />
+<link href='packages/list/main.css' rel='stylesheet' />
+<link href='packages/calendar.css' rel='stylesheet' />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src='packages/core/main.js'></script>
+<script src='packages/interaction/main.js'></script>
+<script src='packages/daygrid/main.js'></script>
+<script src='packages/timegrid/main.js'></script>
+<script src='packages/list/main.js'></script>
+<script src='packages/google-calendar/main.js'></script>
+<script src='packages/index.js'></script>
+
+<title> Calamari Inc. | Asura - Raid Calendar (Team Ankey)</title>
+
+<script>
+
+  document.addEventListener('DOMContentLoaded', function() {
+	var initialTimeZone = 'local';
+    var timeZoneSelectorEl = document.getElementById('time-zone-selector');
+    var loadingEl = document.getElementById('loading');
+    var calendarEl = document.getElementById('calendar');
+
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+
+      plugins: [ 'interaction', 'dayGrid', 'list', 'googleCalendar' ],
+
+      header: {
+        left: 'prev,next today',
+        center: 'title',
+        right: 'dayGridMonth,listYear'
+      },
+	  
+	  // Patch 5.2 Launch Day
+	  events: [
+		{
+			title: 'Patch 5.2: Echoes of a Fallen Star',
+			start: '2020-02-18',
+			url: 'https://na.finalfantasyxiv.com/shadowbringers/patch_5_2/',
+			color: '#33B679',
+			textColor: 'white'
+			},
+		],
+
+      displayEventTime: true, 
+      googleCalendarApiKey: 'AIzaSyBmOdJ94zMITbQYuh9yLOU2b0-ieQULM34',
+
+      // Away , Late
+      eventSources: [
+		{
+			googleCalendarId: 'i6d0r79jdsm9fk4pnnau3odsd8@group.calendar.google.com', 
+			color: '#D50000',
+			textColor: 'white'
+		},
+		{
+			googleCalendarId: 'fgjjobevoo8tfqp07pbmq6of34@group.calendar.google.com',
+			color: '#B39DDB',
+			textColor: 'white'
+		}
+		],
+
+		
+      eventClick: function(arg) {
+        // opens events in a popup window
+        window.open(arg.event.url, 'google-calendar-event', 'width=700,height=600');
+
+        arg.jsEvent.preventDefault() // don't navigate in main tab
+      },
+
+      loading: function(bool) {
+        document.getElementById('loading').style.display =
+          bool ? 'block' : 'none';
+      },
+	  
+      eventTimeFormat: { hour: 'numeric', minute: '2-digit', timeZoneName: 'short' },
+
+      dateClick: function(arg) {
+        console.log('dateClick', calendar.formatIso(arg.date));
+      },
+      select: function(arg) {
+        console.log('select', calendar.formatIso(arg.start), calendar.formatIso(arg.end));
+      }	 
+
+    });
+
+    calendar.render();
+	
+	FullCalendar.requestJson('GET', 'php/get-time-zones.php', {}, function(timeZones) {
+
+      timeZones.forEach(function(timeZone) {
+        var optionEl;
+
+        if (timeZone !== 'UTC') { // UTC is already in the list
+          optionEl = document.createElement('option');
+          optionEl.value = timeZone;
+          optionEl.innerText = timeZone;
+          timeZoneSelectorEl.appendChild(optionEl);
+        }
+      });
+    }, function() {
+      // TODO: handle error
+    });
+
+    // when the timezone selector changes, dynamically change the calendar option
+    timeZoneSelectorEl.addEventListener('change', function() {
+      calendar.setOption('timeZone', this.value);
+    });
+  });
+
+</script>
+</head>
+
+<body>
+<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Asul">
+
+<div class="body">
+
+<div class="navbar">
+	<a href="index.html">Home</a>
+	<div class="active">
+	<a href="#">Raid Calendar</a>
+	</div>
+	<div class="dropdown">
+		<button class="dropbtn">Legacy BiS
+			<i class="fa fa-caret-down"></i>
+		</button>
+		<div class="dropdown-content">
+			<a href="https://docs.google.com/document/d/11qSdAy9PL5NdxHwzOg_oW2ZnX5aDGfytk4JlinTgQOc/edit#heading=h.m666q6hq2p03" target="_blank"><img style="vertical-align:middle;height:100%;" src="resources/tank.png"> Tank</a>
+			<a href="https://docs.google.com/document/d/1W5Qtegw-C5K0kUmNjSL5ThEO4A3d2OEXIZQRg570Gi4/edit#heading=h.m666q6hq2p03" target="_blank"><img style="vertical-align:middle;height:100%;" src="resources/healer.png"> Healer</a>
+			<a href="https://docs.google.com/document/d/1qe_0E1kqD8qwBjMtOTpEdDGdfNdz8bEMdP2q4tBQfss/edit#heading=h.m666q6hq2p03" target="_blank"><img style="vertical-align:middle;height:100%;" src="resources/melee.png"> Melee DPS</a>
+			<a href="https://docs.google.com/document/d/1oeMSgLvBZWErTHfU_pp7eK2NbGQaARjuVZnmRgFlMEg/edit#heading=h.m666q6hq2p03" target="_blank"><img style="vertical-align:middle;height:100%;" src="resources/ranged.png"> Ranged DPS</a>
+			<a href="https://docs.google.com/document/d/1IK-eu5OPPOPlXOeJlMVnI2fxIR4-n0YXsNvJ_HI-JIQ/edit#heading=h.m666q6hq2p03" target="_blank"><img style="vertical-align:middle;height:100%;" src="resources/caster.png"> Caster</a>
+		</div>
+	</div>
+	<div class="dropdown-timezone">
+		<a2>Time Zone:</a2>
+			<select id='time-zone-selector' style="vertical-align:bottom;">
+				<option value='local' selected>local</option>
+				<option value='Asia/Kuala_Lumpur'>MYS / SGT</option>
+				<option value='Australia/Sydney'>Australia/Sydney</option>
+				<option value='EST'>EST</option>
+				<option value='Pacific/Auckland'>Pacific/Auckland</option>
+			</select>
+	</div>
+</div>
+
+<div id='top'>
+
+    <!--  <div class='left'>
+      Timezone:
+      <select id='time-zone-selector'>
+        <option value='local' selected>local</option>
+		<option value='Asia/Hong_Kong'>Asia/Hong_Kong</option>
+		<option value='Asia/Kuala_Lumpur'>Asia/Kuala_Lumpur</option>
+		<option value='Asia/Singapore'>Asia/Singapore</option>
+		<option value='Australia/Sydney'>Australia/Sydney</option>
+        <option value='EST'>EST</option>
+		<option value='Pacific/Auckland'>Pacific/Auckland</option>
+      </select>
+    </div> -->
+
+    <div class='right'>
+      <span id='loading'>loading...</span>
+      <span id='script-warning'><code>php/get-events.php</code> must be running.</span>
+    </div>
+
+    <div class='clear'></div>
+
+  </div>
+
+  <div id='calendar'></div>
+  
+  	<footer class="footer">
+		<p>FINAL FANTASY XIV © 2010 - 2020 SQUARE ENIX CO., LTD. All Rights Reserved.</p>
+	</footer>
+  
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,158 @@
+body {
+	background: url("https://img.finalfantasyxiv.com/lds/promo/h/l/nMVFib7aYT5wCpIMTG2wiuPz8M.png") no-repeat top center fixed;
+	-webkit-background-size: auto;
+	-moz-background-size: auto;
+	-o-background-size: auto;
+	background-size: auto;
+  background-color: black; /*#313131*/
+	color: #000305;
+	font-size: 13px; 
+	font-family: 'Asul', Arial, sans-serif;
+	line-height: 13px;
+	margin: 0;
+	padding: 0;
+	text-align: left;
+}
+.body {
+	clear: both; 
+	margin: 0 auto;
+	width: 80%;
+}
+
+.navbar {
+	background: rgba(0,0,0,0.3);
+	font-size: 1.143em;
+	height: 40px;
+	line-height: 30px;
+	margin: 0 auto 30px auto;
+	text-align: center;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+}
+
+.navbar a, .navbar a2 {
+	float: left;
+	color: #fff;
+	display: inline-block;
+	height: 30px;
+	padding: 5px 23px;
+	text-decoration: none;
+}
+
+.navbar a:active, .navbar .active a:link , .navbar .active a:visited{
+	background-color: rgba(207,92,63,0.5);
+	color: #fff;
+	text-shadow: none !important;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+}
+
+.dropdown {
+  float: left;
+  overflow: hidden;
+}
+
+.dropdown-timezone {
+  float: right;
+  overflow: hidden;
+}
+
+.dropdown .dropbtn {
+  font-size: inherit;
+  border: none;
+  outline: none;
+  color: white;
+  height: 40px;
+  padding: 5px 23px;
+  background-color: inherit;
+  font-family: inherit; /* Important for vertical align on mobile phones */
+  margin: 0; /* Important for vertical align on mobile phones */
+}
+
+.navbar a:hover, .dropdown:hover .dropbtn {
+  background-color: rgba(207,92,63,0.5);
+  	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: rgba(0,0,0,0.75); /*#f9f9f9;*/
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 10;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+}
+
+.dropdown-content a {
+  float: none;
+  color: white;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.dropdown-content a:hover {
+  background-color: rgba(207,92,63,0.75);
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.footer {
+	width: 100%;
+	float: left;
+	margin-top: 2%;
+	margin-bottom: 2%;
+	padding-left: 0;
+	background-color: rgba(0,0,0,0.5);
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;	
+	color: #FFF;	
+}
+
+.footer p {
+	width: 91%;
+	margin: 2% auto;
+}
+
+.left { float: left }
+.right { float: right }
+.clear { clear: both }
+
+#script-warning, #loading { display: none }
+#script-warning { font-weight: bold; color: red }
+
+#loading {
+	display: none;
+	position: absolute;
+	top: 10px;
+	right: 10px;
+}
+
+#calendar {
+	max-width: 900px;
+	margin: 0px auto;
+	overflow: hidden;
+	line-height: 25px;
+	background-color: rgba(255,255,255,0.8);
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	-webkit-border-radius: 5px;	
+	padding: 3% 5%;	
+	margin-bottom: 3%;
+}
+ 
+.tzo {
+	color: #000;
+}
