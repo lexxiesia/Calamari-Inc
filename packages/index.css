@@ -56,13 +56,17 @@ h1 {
 	margin:30px 30px 0 0;
 }	
 
-h2 {font-size: 22px}
+h2 {
+	font-size: 22px;
+	font-weight: 400;
+}
+
 h3 {font-size: 20px}
 h4 {font-size: 18px}
 h5 {font-size: 16px}
 h6 {font-size: 14px}
 
-h2, h3, h4, h5, h6 {
+h3, h4, h5, h6 {
 	font-weight: 400;
 	line-height: 15px;
 	margin-bottom: 5px;
@@ -215,6 +219,12 @@ a:hover, a:active {
 	font-size: 85%;
 }
 
+.back-to-top {
+	text-align: right;
+	font-style: italic;
+	color: #999;
+	font-size: 85%;
+}
 
 .sidebar-links {
 	width: 24%;
